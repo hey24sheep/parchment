@@ -220,9 +220,9 @@ class ParentBlot extends ShadowBlot implements Parent {
     if (refBlot != null) {
       refDomNode = refBlot.domNode;
     }
-    if (
-      this.domNode.parentNode !== childBlot.domNode ||
-      this.domNode.nextSibling !== refDomNode
+    if ((this.domNode.parentNode !== childBlot.domNode ||
+      this.domNode.nextSibling !== refDomNode) &&
+      this.domNode.contains(childBlot.domNode)
     ) {
       this.domNode.insertBefore(childBlot.domNode, refDomNode);
     }
@@ -344,7 +344,7 @@ class ParentBlot extends ShadowBlot implements Parent {
         // @ts-ignore
         node.tagName !== 'IFRAME' &&
         document.body.compareDocumentPosition(node) &
-          Node.DOCUMENT_POSITION_CONTAINED_BY
+        Node.DOCUMENT_POSITION_CONTAINED_BY
       ) {
         return;
       }
